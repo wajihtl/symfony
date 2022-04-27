@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b1e4e5d208e5554c766165ad78b95e51420e226e',
+        'reference' => 'e5769649ae2171ba7ef665cd549801cbb725a025',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,25 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b1e4e5d208e5554c766165ad78b95e51420e226e',
+            'reference' => 'e5769649ae2171ba7ef665cd549801cbb725a025',
+            'dev_requirement' => false,
+        ),
+        'captcha-com/captcha' => array(
+            'pretty_version' => '4.2.5',
+            'version' => '4.2.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../captcha-com/captcha',
+            'aliases' => array(),
+            'reference' => '4b8b642509bfc63d2f295dccf1c1b4d0e2266a15',
+            'dev_requirement' => false,
+        ),
+        'captcha-com/symfony-captcha-bundle' => array(
+            'pretty_version' => '4.2.12',
+            'version' => '4.2.12.0',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../captcha-com/symfony-captcha-bundle',
+            'aliases' => array(),
+            'reference' => 'fd071c3f36d646ff87b591ddb3ea531c5f3678c2',
             'dev_requirement' => false,
         ),
         'doctrine/annotations' => array(
@@ -418,8 +436,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0',
+                0 => '1.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache-implementation' => array(

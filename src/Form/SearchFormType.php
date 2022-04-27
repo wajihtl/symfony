@@ -14,52 +14,50 @@ use App\Repository\ProductsRepository;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+
 class SearchForm extends AbstractType
 {
 
 
 
-    public function configureOptions(OptionsResolver $resolver){
+    public function configureOptions(OptionsResolver $resolver)
+    {
 
         $resolver->setDefaults([
-                'data_class' => SearchData::class,
-                'method'     => 'GET',
-                'csrf_protection' => false,
-                'user'=>null
-             
+            'data_class' => SearchData::class,
+            'method'     => 'GET',
+            'csrf_protection' => false,
+            'user' => null
+
 
         ]);
     }
 
-    public function fetBlockPrefix(){
+    public function fetBlockPrefix()
+    {
 
         return '';
     }
 
 
-    
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-    
+
         $builder
-        ->add('q', TextType::class, [
-            'label' => false,
-            'required' => false,
-            'attr' => [
-                'placeholder' => 'entrez le Nom'
-            ]
-        ])
-        ->add('p', TextType::class, [
-            'label' => false,
-            'required' => false,
-            'attr' => [
-                'placeholder' => 'entrez le Prenom'
-            ]
-        ])
-
-
-        ;
-
-
+            ->add('q', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'entrez le Nom'
+                ]
+            ])
+            ->add('p', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'entrez le Prenom'
+                ]
+            ]);
     }
 }

@@ -21,6 +21,7 @@
       <parameter key="SecurityBundle">Symfony\Bundle\SecurityBundle\SecurityBundle</parameter>
       <parameter key="TwigExtraBundle">Twig\Extra\TwigExtraBundle\TwigExtraBundle</parameter>
       <parameter key="WebServerBundle">Symfony\Bundle\WebServerBundle\WebServerBundle</parameter>
+      <parameter key="CaptchaBundle">Captcha\Bundle\CaptchaBundle\CaptchaBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -70,6 +71,10 @@
       <parameter key="WebServerBundle" type="collection">
         <parameter key="path">/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/web-server-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\WebServerBundle</parameter>
+      </parameter>
+      <parameter key="CaptchaBundle" type="collection">
+        <parameter key="path">/home/wajih/pidev/symfonyy/ethleteinteg/vendor/captcha-com/symfony-captcha-bundle</parameter>
+        <parameter key="namespace">Captcha\Bundle\CaptchaBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -147,6 +152,7 @@
     <parameter key="serializer.mapping.cache.file">/home/wajih/pidev/symfonyy/ethleteinteg/var/cache/dev/serialization.php</parameter>
     <parameter key="twig.exception_listener.controller">null</parameter>
     <parameter key="twig.form.resources" type="collection">
+      <parameter>@Captcha/captcha.html.twig</parameter>
       <parameter>form_div_layout.html.twig</parameter>
       <parameter>bootstrap_4_layout.html.twig</parameter>
     </parameter>
@@ -250,6 +256,21 @@
     <parameter key="security.authentication.session_strategy.strategy">migrate</parameter>
     <parameter key="security.access.always_authenticate_before_granting">false</parameter>
     <parameter key="security.authentication.hide_user_not_found">true</parameter>
+    <parameter key="botdetect_captcha.class">Captcha\Bundle\CaptchaBundle\Integration\BotDetectCaptcha</parameter>
+    <parameter key="botdetect_simple_captcha.class">Captcha\Bundle\CaptchaBundle\Integration\BotDetectSimpleCaptcha</parameter>
+    <parameter key="captcha_routes_loader.class">Captcha\Bundle\CaptchaBundle\Routing\CaptchaRoutesLoader</parameter>
+    <parameter key="captcha_type.class">Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType</parameter>
+    <parameter key="simple_captcha_type.class">Captcha\Bundle\CaptchaBundle\Form\Type\SimpleCaptchaType</parameter>
+    <parameter key="valid_captcha_validator.class">Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptchaValidator</parameter>
+    <parameter key="valid_simple_captcha_validator.class">Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidSimpleCaptchaValidator</parameter>
+    <parameter key="captcha.config" type="collection">
+      <parameter key="botdetect_captcha_path">/home/wajih/pidev/symfonyy/ethleteinteg/vendor/captcha-com/symfony-captcha-bundle/Support/../../captcha/botdetect-captcha-lib</parameter>
+      <parameter key="captchaConfig">null</parameter>
+      <parameter key="captchaStyleName">null</parameter>
+    </parameter>
+    <parameter key="captcha.config.botdetect_captcha_path">/home/wajih/pidev/symfonyy/ethleteinteg/vendor/captcha-com/symfony-captcha-bundle/Support/../../captcha/botdetect-captcha-lib</parameter>
+    <parameter key="captcha.config.captchaConfig">null</parameter>
+    <parameter key="captcha.config.captchaStyleName">null</parameter>
     <parameter key="maker.compatible_check.doctrine.supports_attributes">true</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
@@ -379,6 +400,9 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\ResetPassType" class="App\Form\ResetPassType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\SearchFormType" class="App\Form\SearchFormType" autowire="true" autoconfigure="true"/>
@@ -819,17 +843,21 @@
         <argument>Symfony\Component\Form\Extension\Core\Type</argument>
         <argument>App\Form</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
+        <argument></argument>
       </argument>
       <argument type="collection">
         <argument>App\Form\ArticleType</argument>
         <argument>App\Form\EditUserType</argument>
         <argument>App\Form\ProfileType</argument>
         <argument>App\Form\RegistrationFormType</argument>
+        <argument>App\Form\ResetPassType</argument>
         <argument>App\Form\UserType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type\EntityType</argument>
+        <argument>Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType</argument>
+        <argument>Captcha\Bundle\CaptchaBundle\Form\Type\SimpleCaptchaType</argument>
       </argument>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type\TransformationFailureExtension</argument>
@@ -1159,7 +1187,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.dlbQP8E"/>
+      <argument type="service" id=".service_locator.tpaLale"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -1387,7 +1415,7 @@
       <factory class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" method="create"/>
     </service>
     <service id="validator.validator_factory" class="Symfony\Component\Validator\ContainerConstraintValidatorFactory" public="false">
-      <argument type="service" id=".service_locator.Y7gDuDN"/>
+      <argument type="service" id=".service_locator.u8z4W6F"/>
     </service>
     <service id="validator.expression" class="Symfony\Component\Validator\Constraints\ExpressionValidator" public="false">
       <tag name="validator.constraint_validator" alias="validator.expression"/>
@@ -1759,6 +1787,8 @@
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/TwigExtraBundle/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/web-server-bundle/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/WebServerBundle/translations</argument>
+          <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/captcha-com/symfony-captcha-bundle/translations</argument>
+          <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/CaptchaBundle/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
@@ -1791,6 +1821,8 @@
             <argument>src/Resources/TwigExtraBundle/translations</argument>
             <argument>vendor/symfony/web-server-bundle/translations</argument>
             <argument>src/Resources/WebServerBundle/translations</argument>
+            <argument>vendor/captcha-com/symfony-captcha-bundle/translations</argument>
+            <argument>src/Resources/CaptchaBundle/translations</argument>
             <argument>src/Resources/translations</argument>
           </argument>
         </argument>
@@ -2685,6 +2717,9 @@
         <argument type="service" id="routing.loader.container"/>
       </call>
       <call method="addLoader">
+        <argument type="service" id="captcha.routing_loader"/>
+      </call>
+      <call method="addLoader">
         <argument type="service" id="routing.loader.annotation"/>
       </call>
       <call method="addLoader">
@@ -3280,6 +3315,14 @@
       <call method="addPath">
         <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-bundle/Resources/views</argument>
         <argument>!Security</argument>
+      </call>
+      <call method="addPath">
+        <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/captcha-com/symfony-captcha-bundle/Resources/views</argument>
+        <argument>Captcha</argument>
+      </call>
+      <call method="addPath">
+        <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/captcha-com/symfony-captcha-bundle/Resources/views</argument>
+        <argument>!Captcha</argument>
       </call>
       <call method="addPath">
         <argument>/home/wajih/pidev/symfonyy/ethleteinteg/templates</argument>
@@ -5072,6 +5115,33 @@
         <argument>server:status</argument>
       </call>
     </service>
+    <service id="captcha" class="Captcha\Bundle\CaptchaBundle\Integration\BotDetectCaptcha" public="true">
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="simple_captcha" class="Captcha\Bundle\CaptchaBundle\Integration\BotDetectSimpleCaptcha" public="true">
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="captcha.routing_loader" class="Captcha\Bundle\CaptchaBundle\Routing\CaptchaRoutesLoader">
+      <tag name="routing.loader"/>
+    </service>
+    <service id="captcha.form.type" class="Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType" public="true">
+      <tag name="form.type" alias="captcha"/>
+      <argument type="service" id="service_container"/>
+      <argument>%captcha.config%</argument>
+    </service>
+    <service id="simple_captcha.form.type" class="Captcha\Bundle\CaptchaBundle\Form\Type\SimpleCaptchaType" public="true">
+      <tag name="form.type" alias="captcha"/>
+      <argument type="service" id="service_container"/>
+      <argument>%captcha.config%</argument>
+    </service>
+    <service id="captcha.validator" class="Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptchaValidator" public="true">
+      <tag name="validator.constraint_validator" alias="valid_captcha"/>
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="simple_captcha.validator" class="Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidSimpleCaptchaValidator" public="true">
+      <tag name="validator.constraint_validator" alias="valid_simple_captcha"/>
+      <argument type="service" id="service_container"/>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ArticleController" class="App\Controller\ArticleController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ArticleController" class="App\Controller\ArticleController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ArticleController" class="App\Controller\ArticleController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5092,6 +5162,8 @@
     <service id=".abstract.instanceof.App\Form\ProfileType" class="App\Form\ProfileType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetPassType" class="App\Form\ResetPassType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ResetPassType" class="App\Form\ResetPassType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserType" class="App\Form\UserType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" abstract="true"/>
@@ -5411,6 +5483,20 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
+    <service id=".service_locator.QXdYQvz" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="mailer" type="service_closure" id="mailer.mailer"/>
+        <argument key="tokenGenerator" type="service_closure" id="security.csrf.token_generator"/>
+        <argument key="userRepo" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.F8Oy7LC" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="passwordEncoder" type="service_closure" id="security.user_password_encoder.generic"/>
+      </argument>
+    </service>
     <service id=".service_locator.HauJMNx" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5436,7 +5522,7 @@
         <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.cvsmRth" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.N.c.6YK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ArticleController::delete" type="service_closure" id=".service_locator.vOKdNDk"/>
@@ -5445,8 +5531,10 @@
         <argument key="App\Controller\ArticleController::new" type="service_closure" id=".service_locator.SKyBV3Z"/>
         <argument key="App\Controller\ArticleController::show" type="service_closure" id=".service_locator.JbNDzVq"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.TLot220"/>
+        <argument key="App\Controller\SecurityController::forgottenPass" type="service_closure" id=".service_locator.QXdYQvz"/>
         <argument key="App\Controller\SecurityController::home" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.f94kp8W"/>
+        <argument key="App\Controller\SecurityController::verifyUserEmail" type="service_closure" id=".service_locator.F8Oy7LC"/>
         <argument key="App\Controller\UserController::delete" type="service_closure" id=".service_locator.UBgjr8M"/>
         <argument key="App\Controller\UserController::delete_profile" type="service_closure" id=".service_locator.rko9FXl"/>
         <argument key="App\Controller\UserController::edit" type="service_closure" id=".service_locator.UBgjr8M"/>
@@ -5460,8 +5548,10 @@
         <argument key="App\Controller\ArticleController:new" type="service_closure" id=".service_locator.SKyBV3Z"/>
         <argument key="App\Controller\ArticleController:show" type="service_closure" id=".service_locator.JbNDzVq"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.TLot220"/>
+        <argument key="App\Controller\SecurityController:forgottenPass" type="service_closure" id=".service_locator.QXdYQvz"/>
         <argument key="App\Controller\SecurityController:home" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.f94kp8W"/>
+        <argument key="App\Controller\SecurityController:verifyUserEmail" type="service_closure" id=".service_locator.F8Oy7LC"/>
         <argument key="App\Controller\UserController:delete" type="service_closure" id=".service_locator.UBgjr8M"/>
         <argument key="App\Controller\UserController:delete_profile" type="service_closure" id=".service_locator.rko9FXl"/>
         <argument key="App\Controller\UserController:edit" type="service_closure" id=".service_locator.UBgjr8M"/>
@@ -5471,9 +5561,11 @@
         <argument key="App\Controller\UserController:show" type="service_closure" id=".service_locator.3vYy5bm"/>
       </argument>
     </service>
-    <service id=".service_locator.Y7gDuDN" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.u8z4W6F" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptchaValidator" type="service_closure" id="captcha.validator"/>
+        <argument key="Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidSimpleCaptchaValidator" type="service_closure" id="simple_captcha.validator"/>
         <argument key="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator" type="service_closure" id="doctrine.orm.validator.unique"/>
         <argument key="Symfony\Component\Security\Core\Validator\Constraints\UserPasswordValidator" type="service_closure" id="security.validator.user_password"/>
         <argument key="Symfony\Component\Validator\Constraints\EmailValidator" type="service_closure" id="validator.email"/>
@@ -5481,6 +5573,8 @@
         <argument key="Symfony\Component\Validator\Constraints\NotCompromisedPasswordValidator" type="service_closure" id="validator.not_compromised_password"/>
         <argument key="doctrine.orm.validator.unique" type="service_closure" id="doctrine.orm.validator.unique"/>
         <argument key="security.validator.user_password" type="service_closure" id="security.validator.user_password"/>
+        <argument key="valid_captcha" type="service_closure" id="captcha.validator"/>
+        <argument key="valid_simple_captcha" type="service_closure" id="simple_captcha.validator"/>
         <argument key="validator.expression" type="service_closure" id="validator.expression"/>
       </argument>
     </service>
@@ -5530,14 +5624,17 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.dlbQP8E" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.tpaLale" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ArticleType" type="service_closure" id="App\Form\ArticleType"/>
         <argument key="App\Form\EditUserType" type="service_closure" id="App\Form\EditUserType"/>
         <argument key="App\Form\ProfileType" type="service_closure" id="App\Form\ProfileType"/>
         <argument key="App\Form\RegistrationFormType" type="service_closure" id="App\Form\RegistrationFormType"/>
+        <argument key="App\Form\ResetPassType" type="service_closure" id="App\Form\ResetPassType"/>
         <argument key="App\Form\UserType" type="service_closure" id="App\Form\UserType"/>
+        <argument key="Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType" type="service_closure" id="captcha.form.type"/>
+        <argument key="Captcha\Bundle\CaptchaBundle\Form\Type\SimpleCaptchaType" type="service_closure" id="simple_captcha.form.type"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service_closure" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\FileType" type="service_closure" id="form.type.file"/>
@@ -5932,12 +6029,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.cvsmRth"/>
+      <argument type="service" id=".service_locator.N.c.6YK"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.cvsmRth"/>
+      <argument type="service" id=".service_locator.N.c.6YK"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6341,7 +6438,7 @@
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker" public="false"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.cvsmRth"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.N.c.6YK"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
@@ -6355,7 +6452,8 @@
     <service id="Psr\Log\LoggerInterface $debugLogger" alias="monolog.logger.debug"/>
     <service id="Psr\Log\LoggerInterface $doctrineLogger" alias="monolog.logger.doctrine"/>
     <service id="Psr\Log\LoggerInterface $securityLogger" alias="monolog.logger.security"/>
-    <service id=".service_locator.tHpW6v3" alias=".service_locator.Y7gDuDN" public="false"/>
+    <service id=".service_locator.xkmSecI" alias=".service_locator.u8z4W6F" public="false"/>
+    <service id=".service_locator.6lSQ2D." alias=".service_locator.tpaLale" public="false"/>
     <service id="validator" alias="debug.validator" public="true"/>
     <service id="translator.data_collector.inner" alias="translator.default" public="false"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>

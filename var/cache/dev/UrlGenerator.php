@@ -24,6 +24,8 @@ return [
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], []],
     'denied_access' => [[], ['_controller' => 'App\\Controller\\SecurityController::index'], [], [['text', '/denied_access']], [], []],
+    'app_forgotten_password' => [[], ['_controller' => 'App\\Controller\\SecurityController::forgottenPass'], [], [['text', '/forgotten-password']], [], []],
+    'app_reset_password' => [['token'], ['_controller' => 'App\\Controller\\SecurityController::verifyUserEmail'], [], [['variable', '/', '[^/]++', 'token'], ['text', '/resetPassword']], [], []],
     'choice' => [[], ['_controller' => 'App\\Controller\\SecurityController::choice'], [], [['text', '/choice']], [], []],
     'home' => [[], ['_controller' => 'App\\Controller\\SecurityController::home'], [], [['text', '/login']], [], []],
     'profile' => [[], ['_controller' => 'App\\Controller\\UserController::profile'], [], [['text', '/user/profile']], [], []],
@@ -33,4 +35,6 @@ return [
     'app_user_show' => [['id'], ['_controller' => 'App\\Controller\\UserController::show'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/user']], [], []],
     'app_user_edit' => [['id'], ['_controller' => 'App\\Controller\\UserController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id'], ['text', '/user']], [], []],
     'app_user_delete' => [['id'], ['_controller' => 'App\\Controller\\UserController::delete'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/user/delete']], [], []],
+    'captcha_handler' => [[], ['_controller' => 'CaptchaBundle:CaptchaHandler:index'], [], [['text', '/captcha-handler']], [], []],
+    'simple_captcha_handler' => [[], ['_controller' => 'CaptchaBundle:SimpleCaptchaHandler:index'], [], [['text', '/simple-captcha-handler']], [], []],
 ];

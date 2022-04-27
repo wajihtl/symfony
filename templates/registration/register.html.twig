@@ -101,6 +101,17 @@
                                 </div>
                                 {{ form_widget(registrationForm.adresse  , {'attr' : {'class' : 'form-control p_input' , 'placeholder' : 'adresse'}}) }}
                             </div>
+                             {{ form_errors(registrationForm.captchaCode , {'attr' : {'class' : ' alert alert-danger label'}}) }}
+                            <div class="input-group input-group-merge input-group-alternative mb-3">
+
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                {{ form_widget(registrationForm.captchaCode  , {'attr' : {'class' : 'form-control p_input' , 'placeholder' : 'captchaCode'}}) }}
+                            </div>
+
+
+
                             {{ form_errors(registrationForm.agreeTerms  , {'attr' : {'class' : 'label'}}) }}
                             <div class="form-group d-flex align-items-center justify-content-between">
                                 <div class="form-check">
