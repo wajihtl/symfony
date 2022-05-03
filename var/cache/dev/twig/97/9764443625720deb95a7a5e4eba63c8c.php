@@ -39,11 +39,7 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "security/login.html.twig"));
 
-        // line 1
-        echo "
-
-    ";
-        // line 13
+        // line 11
         echo "  
    <!DOCTYPE html>
     <html lang=\"en\">
@@ -51,14 +47,14 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
         <!-- Required meta tags -->
         <meta charset=\"utf-8\">
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
-        <title>Bienvenue chez fly invictus</title>
+        <title>Bienvenue chez Nextec</title>
         <!-- plugins:css -->
         <link rel=\"stylesheet\" href=\"";
-        // line 22
+        // line 20
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("back/assets/vendors/mdi/css/materialdesignicons.min.css"), "html", null, true);
         echo "\">
         <link rel=\"stylesheet\" href=\"";
-        // line 23
+        // line 21
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("back/assets/vendors/css/vendor.bundle.base.css"), "html", null, true);
         echo "\">
         <!-- endinject -->
@@ -68,7 +64,7 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
         <!-- endinject -->
         <!-- Layout styles -->
         <link rel=\"stylesheet\" href=\"";
-        // line 30
+        // line 28
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("back/assets/css/style.css"), "html", null, true);
         echo "\">
         <!-- End layout styles -->
@@ -89,29 +85,29 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
                             <h3 class=\"card-title text-left mb-3\">Login</h3>
 
                             ";
-        // line 48
-        if ((isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 48, $this->source); })())) {
-            // line 49
+        // line 46
+        if ((isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 46, $this->source); })())) {
+            // line 47
             echo "                                <div class=\"alert alert-danger\">";
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans(twig_get_attribute($this->env, $this->source, (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 49, $this->source); })()), "messageKey", [], "any", false, false, false, 49), twig_get_attribute($this->env, $this->source, (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 49, $this->source); })()), "messageData", [], "any", false, false, false, 49), "security"), "html", null, true);
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans(twig_get_attribute($this->env, $this->source, (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 47, $this->source); })()), "messageKey", [], "any", false, false, false, 47), twig_get_attribute($this->env, $this->source, (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 47, $this->source); })()), "messageData", [], "any", false, false, false, 47), "security"), "html", null, true);
             echo "</div>
                             ";
         }
-        // line 51
+        // line 49
         echo "
                             <form method=\"post\">
                                 <div class=\"form-group\">
                                     <label>Username  *</label>
                                     <input placeholder=\"Username\" type=\"text\" value=\"";
-        // line 55
-        echo twig_escape_filter($this->env, (isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 55, $this->source); })()), "html", null, true);
+        // line 53
+        echo twig_escape_filter($this->env, (isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 53, $this->source); })()), "html", null, true);
         echo "\" name=\"username\" id=\"inputUsername\" class=\"form-control p_input\" autocomplete=\"username\" required autofocus>
                                 </div>
                                 <div class=\"form-group\">
                                     <label>Password *</label>
                                     <input placeholder=\"Password\" type=\"password\" name=\"password\" id=\"inputPassword\" class=\"form-control p_input\" autocomplete=\"current-password\" required>
                                     <input type=\"hidden\" name=\"_csrf_token\" value=\"";
-        // line 60
+        // line 58
         echo twig_escape_filter($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
         echo "\">
                                 </div>
@@ -122,12 +118,23 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
                                                 <input class=\"form-check-input\" type=\"checkbox\" name=\"_remember_me\"> Remember me
                                             </label>
                                     </div>
+                                    <a href=\"";
+        // line 67
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_forgotten_password");
+        echo "\" class=\"forgot-pass\"><small>Forgot password?</small></a>
                                 </div>
                                 <div class=\"text-center\">
                                     <button type=\"submit\" class=\"btn btn-primary btn-block enter-btn\">Login</button>
                                 </div>
-                                <p class=\"sign-up\">Don't have an Account?<a href=\"";
+                                <div class=\"text-center\">
+                                    <button type=\"submit\" class=\"btn btn-primary btn-block enter-btn\"><a class=\"btn btn-primary btn-block enter-btn\"  href=\"";
         // line 73
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("connect_google");
+        echo "\">Login with google</a></button>
+                                </div>
+                                 
+                                <p class=\"sign-up\">Don't have an Account?<a href=\"";
+        // line 76
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
         echo "\"> Sign Up</a></p>
                             </form>
@@ -143,7 +150,7 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src=\"";
-        // line 86
+        // line 89
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("back/assets/vendors/js/vendor.bundle.base.js"), "html", null, true);
         echo "\"></script>
     <!-- endinject -->
@@ -151,23 +158,23 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src=\"";
-        // line 91
+        // line 94
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("back/assets/js/off-canvas.js"), "html", null, true);
         echo "\"></script>
     <script src=\"";
-        // line 92
+        // line 95
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("back/assets/js/hoverable-collapse.js"), "html", null, true);
         echo "\"></script>
     <script src=\"";
-        // line 93
+        // line 96
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("back/assets/js/misc.js"), "html", null, true);
         echo "\"></script>
     <script src=\"";
-        // line 94
+        // line 97
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("back/assets/js/settings.js"), "html", null, true);
         echo "\"></script>
     <script src=\"";
-        // line 95
+        // line 98
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("back/assets/js/todolist.js"), "html", null, true);
         echo "\"></script>
     <!-- endinject -->
@@ -193,14 +200,12 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
 
     public function getDebugInfo()
     {
-        return array (  171 => 95,  167 => 94,  163 => 93,  159 => 92,  155 => 91,  147 => 86,  131 => 73,  115 => 60,  107 => 55,  101 => 51,  95 => 49,  93 => 48,  72 => 30,  62 => 23,  58 => 22,  47 => 13,  43 => 1,);
+        return array (  178 => 98,  174 => 97,  170 => 96,  166 => 95,  162 => 94,  154 => 89,  138 => 76,  132 => 73,  123 => 67,  111 => 58,  103 => 53,  97 => 49,  91 => 47,  89 => 46,  68 => 28,  58 => 21,  54 => 20,  43 => 11,);
     }
 
     public function getSourceContext()
     {
-        return new Source("
-
-    {#
+        return new Source("{#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
         See https://symfony.com/doc/current/security/remember_me.html
 
@@ -217,7 +222,7 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
         <!-- Required meta tags -->
         <meta charset=\"utf-8\">
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
-        <title>Bienvenue chez fly invictus</title>
+        <title>Bienvenue chez Nextec</title>
         <!-- plugins:css -->
         <link rel=\"stylesheet\" href=\"{{ asset('back/assets/vendors/mdi/css/materialdesignicons.min.css') }}\">
         <link rel=\"stylesheet\" href=\"{{ asset('back/assets/vendors/css/vendor.bundle.base.css') }}\">
@@ -266,10 +271,15 @@ class __TwigTemplate_6b22c75b2b9a2ccefc0053010d765e25 extends Template
                                                 <input class=\"form-check-input\" type=\"checkbox\" name=\"_remember_me\"> Remember me
                                             </label>
                                     </div>
+                                    <a href=\"{{ path('app_forgotten_password') }}\" class=\"forgot-pass\"><small>Forgot password?</small></a>
                                 </div>
                                 <div class=\"text-center\">
                                     <button type=\"submit\" class=\"btn btn-primary btn-block enter-btn\">Login</button>
                                 </div>
+                                <div class=\"text-center\">
+                                    <button type=\"submit\" class=\"btn btn-primary btn-block enter-btn\"><a class=\"btn btn-primary btn-block enter-btn\"  href=\"{{ path('connect_google') }}\">Login with google</a></button>
+                                </div>
+                                 
                                 <p class=\"sign-up\">Don't have an Account?<a href=\"{{ path('app_register') }}\"> Sign Up</a></p>
                             </form>
                         </div>

@@ -15,7 +15,10 @@ return [
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/article' => [[['_route' => 'app_article_index', '_controller' => 'App\\Controller\\ArticleController::index'], null, ['GET' => 0], null, true, false, null]],
         '/article/new' => [[['_route' => 'app_article_new', '_controller' => 'App\\Controller\\ArticleController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/connect/google' => [[['_route' => 'connect_google', '_controller' => 'App\\Controller\\GoogleController::connectAction'], null, null, null, false, false, null]],
+        '/connect/google/check' => [[['_route' => 'connect_google_check', '_controller' => 'App\\Controller\\GoogleController::connectCheckAction'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
+        '/verify/email' => [[['_route' => 'app_verify_email', '_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], null, null, null, false, false, null]],
         '/login' => [
             [['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null],
             [['_route' => 'home', '_controller' => 'App\\Controller\\SecurityController::home'], null, ['GET' => 0], null, false, false, null],
@@ -25,6 +28,8 @@ return [
         '/forgotten-password' => [[['_route' => 'app_forgotten_password', '_controller' => 'App\\Controller\\SecurityController::forgottenPass'], null, null, null, false, false, null]],
         '/choice' => [[['_route' => 'choice', '_controller' => 'App\\Controller\\SecurityController::choice'], null, null, null, false, false, null]],
         '/user/profile' => [[['_route' => 'profile', '_controller' => 'App\\Controller\\UserController::profile'], null, ['GET' => 0], null, false, false, null]],
+        '/user/ActivateAccountWithCode' => [[['_route' => 'ActivateAccountWithCode', '_controller' => 'App\\Controller\\UserController::ActivateAccountWithCode'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/user/DisabledAccount' => [[['_route' => 'DisabledAccount', '_controller' => 'App\\Controller\\UserController::DisabledAccount'], null, null, null, false, false, null]],
         '/user/profile/delete' => [[['_route' => 'delete_profile', '_controller' => 'App\\Controller\\UserController::delete_profile'], null, ['GET' => 0], null, false, false, null]],
         '/user/profile/edit' => [[['_route' => 'edit_profile', '_controller' => 'App\\Controller\\UserController::edit_profile'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/user' => [[['_route' => 'app_user_index', '_controller' => 'App\\Controller\\UserController::index'], null, ['GET' => 0], null, true, false, null]],
@@ -55,11 +60,13 @@ return [
                 .')'
                 .'|/resetPassword/([^/]++)(*:242)'
                 .'|/user/(?'
+                    .'|disable_user/([^/]++)(*:280)'
+                    .'|enable_user/([^/]++)(*:308)'
                     .'|([^/]++)(?'
-                        .'|(*:270)'
-                        .'|/edit(*:283)'
+                        .'|(*:327)'
+                        .'|/edit(*:340)'
                     .')'
-                    .'|delete/([^/]++)(*:307)'
+                    .'|delete/([^/]++)(*:364)'
                 .')'
             .')/?$}sD',
     ],
@@ -75,9 +82,11 @@ return [
         202 => [[['_route' => 'app_article_edit', '_controller' => 'App\\Controller\\ArticleController::edit'], ['idarticle'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         210 => [[['_route' => 'app_article_delete', '_controller' => 'App\\Controller\\ArticleController::delete'], ['idarticle'], ['POST' => 0], null, false, true, null]],
         242 => [[['_route' => 'app_reset_password', '_controller' => 'App\\Controller\\SecurityController::verifyUserEmail'], ['token'], null, null, false, true, null]],
-        270 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\UserController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        283 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        307 => [
+        280 => [[['_route' => 'disable_user', '_controller' => 'App\\Controller\\UserController::disable_user'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        308 => [[['_route' => 'enable_user', '_controller' => 'App\\Controller\\UserController::enable_user'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        327 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\UserController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        340 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        364 => [
             [['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\UserController::delete'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

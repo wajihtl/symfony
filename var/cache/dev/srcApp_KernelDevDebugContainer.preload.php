@@ -10,7 +10,7 @@ if (in_array(PHP_SAPI, ['cli', 'phpdbg'], true)) {
 }
 
 require dirname(__DIR__, 3).'/vendor/autoload.php';
-require __DIR__.'/ContainerQIJf7MK/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerWWx4D0Z/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -26,6 +26,8 @@ $classes[] = 'Symfony\Bundle\SecurityBundle\SecurityBundle';
 $classes[] = 'Twig\Extra\TwigExtraBundle\TwigExtraBundle';
 $classes[] = 'Symfony\Bundle\WebServerBundle\WebServerBundle';
 $classes[] = 'Captcha\Bundle\CaptchaBundle\CaptchaBundle';
+$classes[] = 'KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle';
+$classes[] = 'SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle';
 $classes[] = 'Symfony\Component\HttpClient\TraceableHttpClient';
 $classes[] = 'Symfony\Contracts\HttpClient\HttpClientInterface';
 $classes[] = 'Symfony\Component\HttpClient\HttpClient';
@@ -35,7 +37,13 @@ $classes[] = 'Symfony\Bundle\FrameworkBundle\EventListener\ResolveControllerName
 $classes[] = 'Symfony\Component\HttpFoundation\RequestMatcher';
 $classes[] = 'Symfony\Component\DependencyInjection\ServiceLocator';
 $classes[] = 'App\Controller\ArticleController';
+$classes[] = 'App\Controller\GoogleController';
 $classes[] = 'App\Controller\RegistrationController';
+$classes[] = 'App\Security\EmailVerifier';
+$classes[] = 'SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelper';
+$classes[] = 'Symfony\Component\HttpKernel\UriSigner';
+$classes[] = 'SymfonyCasts\Bundle\VerifyEmail\Util\VerifyEmailQueryUtility';
+$classes[] = 'SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator';
 $classes[] = 'App\Controller\SecurityController';
 $classes[] = 'App\Controller\UserController';
 $classes[] = 'App\Form\ArticleType';
@@ -46,6 +54,7 @@ $classes[] = 'App\Form\ResetPassType';
 $classes[] = 'App\Form\UserType';
 $classes[] = 'App\Repository\ArticleRepository';
 $classes[] = 'App\Repository\UserRepository';
+$classes[] = 'App\Security\GoogleAuthenticator';
 $classes[] = 'App\Security\LoginFormAuthenticator';
 $classes[] = 'Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController';
 $classes[] = 'Doctrine\Bundle\DoctrineBundle\Dbal\ManagerRegistryAwareConnectionProvider';
@@ -250,6 +259,10 @@ $classes[] = 'Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver';
 $classes[] = 'Symfony\Component\HttpKernel\Controller\TraceableArgumentResolver';
 $classes[] = 'Symfony\Component\HttpKernel\Controller\ArgumentResolver';
 $classes[] = 'App\Kernel';
+$classes[] = 'KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient';
+$classes[] = 'League\OAuth2\Client\Provider\Google';
+$classes[] = 'KnpU\OAuth2ClientBundle\DependencyInjection\ProviderFactory';
+$classes[] = 'KnpU\OAuth2ClientBundle\Client\ClientRegistry';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\LocaleAwareListener';
 $classes[] = 'Symfony\Component\HttpKernel\EventListener\LocaleListener';
 $classes[] = 'Symfony\Component\Mailer\EventListener\EnvelopeListener';

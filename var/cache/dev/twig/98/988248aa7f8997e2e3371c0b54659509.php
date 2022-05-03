@@ -159,13 +159,42 @@ class __TwigTemplate_5faf63d7865d4a6a2315bdc4326ecf69 extends Template
             // line 40
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_user_edit", ["id" => twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 40)]), "html", null, true);
             echo "\">edit</a>
+                    ";
+            // line 41
+            if ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 41, $this->source); })()), "user", [], "any", false, false, false, 41), "id", [], "any", false, false, false, 41) == twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 41))) {
+                // line 42
+                echo "                                                    <a class=\"btn btn-outline-dark btn-fw\" href=\"";
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("disable_user", ["id" => twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 42)]), "html", null, true);
+                echo "\" style=\"pointer-events: none\">disable</a>
+                                                ";
+            } else {
+                // line 44
+                echo "                                                    ";
+                if (twig_get_attribute($this->env, $this->source, $context["user"], "disabletoken", [], "any", false, false, false, 44)) {
+                    // line 45
+                    echo "                                                        <a class=\"btn btn-outline-success btn-fw\" href=\"";
+                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("enable_user", ["id" => twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 45)]), "html", null, true);
+                    echo "\">enable</a>
+                                                    ";
+                } else {
+                    // line 47
+                    echo "                                                        <a class=\"btn btn-outline-danger btn-fw\" href=\"";
+                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("disable_user", ["id" => twig_get_attribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 47)]), "html", null, true);
+                    echo "\">disable</a>
+                                                    ";
+                }
+                // line 49
+                echo "                                                ";
+            }
+            // line 50
+            echo "
                 </td>
             </tr>
         ";
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 44
+            // line 54
             echo "            <tr>
                 <td colspan=\"13\">no records found</td>
             </tr>
@@ -174,7 +203,7 @@ class __TwigTemplate_5faf63d7865d4a6a2315bdc4326ecf69 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['user'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 48
+        // line 58
         echo "        </tbody>
     </table>
 
@@ -200,7 +229,7 @@ class __TwigTemplate_5faf63d7865d4a6a2315bdc4326ecf69 extends Template
 
     public function getDebugInfo()
     {
-        return array (  178 => 48,  169 => 44,  160 => 40,  156 => 39,  150 => 36,  146 => 35,  142 => 34,  138 => 33,  134 => 32,  130 => 31,  126 => 30,  122 => 29,  118 => 27,  113 => 26,  94 => 9,  92 => 8,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
+        return array (  207 => 58,  198 => 54,  190 => 50,  187 => 49,  181 => 47,  175 => 45,  172 => 44,  166 => 42,  164 => 41,  160 => 40,  156 => 39,  150 => 36,  146 => 35,  142 => 34,  138 => 33,  134 => 32,  130 => 31,  126 => 30,  122 => 29,  118 => 27,  113 => 26,  94 => 9,  92 => 8,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -245,6 +274,16 @@ class __TwigTemplate_5faf63d7865d4a6a2315bdc4326ecf69 extends Template
                 <td>
                     <a href=\"{{ path('app_user_show', {'id': user.id}) }}\">show</a>
                     <a href=\"{{ path('app_user_edit', {'id': user.id}) }}\">edit</a>
+                    {% if (app.user.id == user.id) %}
+                                                    <a class=\"btn btn-outline-dark btn-fw\" href=\"{{ path('disable_user', {'id': user.id}) }}\" style=\"pointer-events: none\">disable</a>
+                                                {% else %}
+                                                    {% if ( user.disabletoken) %}
+                                                        <a class=\"btn btn-outline-success btn-fw\" href=\"{{ path('enable_user', {'id': user.id}) }}\">enable</a>
+                                                    {% else %}
+                                                        <a class=\"btn btn-outline-danger btn-fw\" href=\"{{ path('disable_user', {'id': user.id}) }}\">disable</a>
+                                                    {% endif %}
+                                                {% endif %}
+
                 </td>
             </tr>
         {% else %}

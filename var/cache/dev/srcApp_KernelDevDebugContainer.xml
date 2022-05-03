@@ -22,6 +22,8 @@
       <parameter key="TwigExtraBundle">Twig\Extra\TwigExtraBundle\TwigExtraBundle</parameter>
       <parameter key="WebServerBundle">Symfony\Bundle\WebServerBundle\WebServerBundle</parameter>
       <parameter key="CaptchaBundle">Captcha\Bundle\CaptchaBundle\CaptchaBundle</parameter>
+      <parameter key="KnpUOAuth2ClientBundle">KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle</parameter>
+      <parameter key="SymfonyCastsVerifyEmailBundle">SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -75,6 +77,14 @@
       <parameter key="CaptchaBundle" type="collection">
         <parameter key="path">/home/wajih/pidev/symfonyy/ethleteinteg/vendor/captcha-com/symfony-captcha-bundle</parameter>
         <parameter key="namespace">Captcha\Bundle\CaptchaBundle</parameter>
+      </parameter>
+      <parameter key="KnpUOAuth2ClientBundle" type="collection">
+        <parameter key="path">/home/wajih/pidev/symfonyy/ethleteinteg/vendor/knpuniversity/oauth2-client-bundle/src</parameter>
+        <parameter key="namespace">KnpU\OAuth2ClientBundle</parameter>
+      </parameter>
+      <parameter key="SymfonyCastsVerifyEmailBundle" type="collection">
+        <parameter key="path">/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src</parameter>
+        <parameter key="namespace">SymfonyCasts\Bundle\VerifyEmail</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -368,9 +378,17 @@
         <argument type="service" id=".service_locator.AVaUqzz.App\Controller\ArticleController"/>
       </call>
     </service>
+    <service id="App\Controller\GoogleController" class="App\Controller\GoogleController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.AVaUqzz.App\Controller\GoogleController"/>
+      </call>
+    </service>
     <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Security\EmailVerifier"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.AVaUqzz.App\Controller\RegistrationController"/>
       </call>
@@ -416,6 +434,16 @@
     <service id="App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Security\EmailVerifier" class="App\Security\EmailVerifier" autowire="true" autoconfigure="true">
+      <argument type="service" id="symfonycasts.verify_email.helper"/>
+      <argument type="service" id="mailer.mailer"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
+    <service id="App\Security\GoogleAuthenticator" class="App\Security\GoogleAuthenticator" autowire="true" autoconfigure="true">
+      <argument type="service" id="knpu.oauth2.registry"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <argument type="service" id="router.default"/>
     </service>
     <service id="App\Security\LoginFormAuthenticator" class="App\Security\LoginFormAuthenticator" autowire="true" autoconfigure="true">
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
@@ -1308,6 +1336,11 @@
       <argument type="service" id="assets.empty_version_strategy"/>
       <argument type="service" id="assets.context"/>
     </service>
+    <service id="psr18.http_client" class="Symfony\Component\HttpClient\Psr18Client">
+      <argument type="service" id=".debug.http_client"/>
+      <argument>null</argument>
+      <argument>null</argument>
+    </service>
     <service id="mailer.mailer" class="Symfony\Component\Mailer\Mailer">
       <argument type="service" id="mailer.transports"/>
       <argument>null</argument>
@@ -1493,6 +1526,7 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.ar.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.ar.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.ar.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.ar.xlf</argument>
           </argument>
           <argument key="az" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.az.xlf</argument>
@@ -1523,6 +1557,7 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.cs.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.cs.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.cs.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.cs.xlf</argument>
           </argument>
           <argument key="cy" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.cy.xlf</argument>
@@ -1536,6 +1571,7 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.de.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.de.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.de.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.de.xlf</argument>
           </argument>
           <argument key="el" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.el.xlf</argument>
@@ -1546,11 +1582,13 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.en.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.en.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.en.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.en.xlf</argument>
           </argument>
           <argument key="es" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.es.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.es.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.es.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.es.xlf</argument>
           </argument>
           <argument key="et" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.et.xlf</argument>
@@ -1571,11 +1609,13 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.fi.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.fi.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.fi.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.fi.xlf</argument>
           </argument>
           <argument key="fr" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.fr.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.fr.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.fr.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.fr.xlf</argument>
           </argument>
           <argument key="gl" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.gl.xlf</argument>
@@ -1596,6 +1636,7 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.hu.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.hu.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.hu.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.hu.xlf</argument>
           </argument>
           <argument key="hy" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.hy.xlf</argument>
@@ -1611,11 +1652,13 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.it.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.it.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.it.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.it.xlf</argument>
           </argument>
           <argument key="ja" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.ja.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.ja.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.ja.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.ja.xlf</argument>
           </argument>
           <argument key="lb" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.lb.xlf</argument>
@@ -1651,6 +1694,7 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.nl.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.nl.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.nl.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle+intl-icu.nl.xlf</argument>
           </argument>
           <argument key="nn" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.nn.xlf</argument>
@@ -1666,11 +1710,13 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.pl.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.pl.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.pl.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.pl.xlf</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.pt.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.pt.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.pt.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.pt.xlf</argument>
           </argument>
           <argument key="pt_BR" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.pt_BR.xlf</argument>
@@ -1681,16 +1727,19 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.ro.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.ro.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.ro.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.ro.xlf</argument>
           </argument>
           <argument key="ru" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.ru.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.ru.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.ru.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.ru.xlf</argument>
           </argument>
           <argument key="sk" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.sk.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.sk.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.sk.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.sk.xlf</argument>
           </argument>
           <argument key="sl" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.sl.xlf</argument>
@@ -1731,11 +1780,13 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.tr.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.tr.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.tr.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.tr.xlf</argument>
           </argument>
           <argument key="uk" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.uk.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.uk.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.uk.xlf</argument>
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.uk.xlf</argument>
           </argument>
           <argument key="uz" type="collection">
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations/validators.uz.xlf</argument>
@@ -1757,11 +1808,15 @@
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations/validators.zh_TW.xlf</argument>
             <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations/security.zh_TW.xlf</argument>
           </argument>
+          <argument key="sr" type="collection">
+            <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations/VerifyEmailBundle.sr.xlf</argument>
+          </argument>
         </argument>
         <argument key="scanned_directories" type="collection">
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/validator/Resources/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/form/Resources/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/security-core/Resources/translations</argument>
+          <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfonycasts/verify-email-bundle/src/Resources/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/symfony/framework-bundle/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/FrameworkBundle/translations</argument>
@@ -1789,6 +1844,9 @@
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/WebServerBundle/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/captcha-com/symfony-captcha-bundle/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/CaptchaBundle/translations</argument>
+          <argument>/home/wajih/pidev/symfonyy/ethleteinteg/vendor/knpuniversity/oauth2-client-bundle/src/translations</argument>
+          <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/KnpUOAuth2ClientBundle/translations</argument>
+          <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/SymfonyCastsVerifyEmailBundle/translations</argument>
           <argument>/home/wajih/pidev/symfonyy/ethleteinteg/src/Resources/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
@@ -1796,6 +1854,7 @@
             <argument>vendor/symfony/validator/Resources/translations</argument>
             <argument>vendor/symfony/form/Resources/translations</argument>
             <argument>vendor/symfony/security-core/Resources/translations</argument>
+            <argument>vendor/symfonycasts/verify-email-bundle/src/Resources/translations</argument>
             <argument>translations</argument>
             <argument>vendor/symfony/framework-bundle/translations</argument>
             <argument>src/Resources/FrameworkBundle/translations</argument>
@@ -1823,6 +1882,9 @@
             <argument>src/Resources/WebServerBundle/translations</argument>
             <argument>vendor/captcha-com/symfony-captcha-bundle/translations</argument>
             <argument>src/Resources/CaptchaBundle/translations</argument>
+            <argument>vendor/knpuniversity/oauth2-client-bundle/src/translations</argument>
+            <argument>src/Resources/KnpUOAuth2ClientBundle/translations</argument>
+            <argument>src/Resources/SymfonyCastsVerifyEmailBundle/translations</argument>
             <argument>src/Resources/translations</argument>
           </argument>
         </argument>
@@ -4978,6 +5040,7 @@
     <service id="security.authentication.provider.guard.main" class="Symfony\Component\Security\Guard\Provider\GuardAuthenticationProvider" public="false">
       <argument type="iterator">
         <argument type="service" id="App\Security\LoginFormAuthenticator"/>
+        <argument type="service" id="App\Security\GoogleAuthenticator"/>
       </argument>
       <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
       <argument>main</argument>
@@ -4991,6 +5054,7 @@
       <argument>main</argument>
       <argument type="iterator">
         <argument type="service" id="App\Security\LoginFormAuthenticator"/>
+        <argument type="service" id="App\Security\GoogleAuthenticator"/>
       </argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument>true</argument>
@@ -5142,9 +5206,52 @@
       <tag name="validator.constraint_validator" alias="valid_simple_captcha"/>
       <argument type="service" id="service_container"/>
     </service>
+    <service id="knpu.oauth2.provider_factory" class="KnpU\OAuth2ClientBundle\DependencyInjection\ProviderFactory" public="false">
+      <argument type="service" id="router.default"/>
+    </service>
+    <service id="knpu.oauth2.registry" class="KnpU\OAuth2ClientBundle\Client\ClientRegistry" public="true">
+      <argument type="service" id="service_container"/>
+      <argument type="collection">
+        <argument key="google">knpu.oauth2.client.google</argument>
+      </argument>
+    </service>
+    <service id="knpu.oauth2.user_provider" class="KnpU\OAuth2ClientBundle\Security\User\OAuthUserProvider" public="false"/>
+    <service id="knpu.oauth2.provider.google" class="League\OAuth2\Client\Provider\Google" public="false">
+      <argument>League\OAuth2\Client\Provider\Google</argument>
+      <argument type="collection">
+        <argument key="clientId">%env(resolve:GOOGLE_CLIENT_ID)%</argument>
+        <argument key="clientSecret">%env(resolve:GOOGLE_CLIENT_SECRET)%</argument>
+      </argument>
+      <argument>connect_google_check</argument>
+      <argument type="collection"/>
+      <argument type="collection"/>
+      <factory service="knpu.oauth2.provider_factory" method="createProvider"/>
+    </service>
+    <service id="knpu.oauth2.client.google" class="KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient" public="true">
+      <argument type="service" id="knpu.oauth2.provider.google"/>
+      <argument type="service" id="request_stack"/>
+    </service>
+    <service id="symfonycasts.verify_email.token_generator" class="SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator" public="false">
+      <argument>%env(APP_SECRET)%</argument>
+    </service>
+    <service id="symfonycasts.verify_email.query_utility" class="SymfonyCasts\Bundle\VerifyEmail\Util\VerifyEmailQueryUtility" public="false"/>
+    <service id="symfonycasts.verify_email.uri_signer" class="Symfony\Component\HttpKernel\UriSigner">
+      <argument>%env(APP_SECRET)%</argument>
+      <argument>signature</argument>
+    </service>
+    <service id="symfonycasts.verify_email.helper" class="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelper">
+      <argument type="service" id="router.default"/>
+      <argument type="service" id="symfonycasts.verify_email.uri_signer"/>
+      <argument type="service" id="symfonycasts.verify_email.query_utility"/>
+      <argument type="service" id="symfonycasts.verify_email.token_generator"/>
+      <argument>3600</argument>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ArticleController" class="App\Controller\ArticleController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ArticleController" class="App\Controller\ArticleController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ArticleController" class="App\Controller\ArticleController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\GoogleController" class="App\Controller\GoogleController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GoogleController" class="App\Controller\GoogleController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\GoogleController" class="App\Controller\GoogleController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5470,6 +5577,12 @@
         <argument key="articleRepository" type="service_closure" id="App\Repository\ArticleRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.F4g8Vod" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="clientRegistry" type="service_closure" id="knpu.oauth2.registry"/>
+      </argument>
+    </service>
     <service id=".service_locator.TLot220" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5503,6 +5616,13 @@
         <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.tIkghun" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="user" type="service_closure" id=".errored..service_locator.tIkghun.App\Entity\User"/>
+      </argument>
+    </service>
     <service id=".service_locator.rko9FXl" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5522,7 +5642,7 @@
         <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.N.c.6YK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.3i6faoq" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ArticleController::delete" type="service_closure" id=".service_locator.vOKdNDk"/>
@@ -5530,15 +5650,19 @@
         <argument key="App\Controller\ArticleController::index" type="service_closure" id=".service_locator.SKyBV3Z"/>
         <argument key="App\Controller\ArticleController::new" type="service_closure" id=".service_locator.SKyBV3Z"/>
         <argument key="App\Controller\ArticleController::show" type="service_closure" id=".service_locator.JbNDzVq"/>
+        <argument key="App\Controller\GoogleController::connectAction" type="service_closure" id=".service_locator.F4g8Vod"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.TLot220"/>
         <argument key="App\Controller\SecurityController::forgottenPass" type="service_closure" id=".service_locator.QXdYQvz"/>
         <argument key="App\Controller\SecurityController::home" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController::verifyUserEmail" type="service_closure" id=".service_locator.F8Oy7LC"/>
+        <argument key="App\Controller\UserController::ActivateAccountWithCode" type="service_closure" id=".service_locator.HauJMNx"/>
         <argument key="App\Controller\UserController::delete" type="service_closure" id=".service_locator.UBgjr8M"/>
         <argument key="App\Controller\UserController::delete_profile" type="service_closure" id=".service_locator.rko9FXl"/>
+        <argument key="App\Controller\UserController::disable_user" type="service_closure" id=".service_locator.tIkghun"/>
         <argument key="App\Controller\UserController::edit" type="service_closure" id=".service_locator.UBgjr8M"/>
         <argument key="App\Controller\UserController::edit_profile" type="service_closure" id=".service_locator.rko9FXl"/>
+        <argument key="App\Controller\UserController::enable_user" type="service_closure" id=".service_locator.tIkghun"/>
         <argument key="App\Controller\UserController::index" type="service_closure" id=".service_locator.HauJMNx"/>
         <argument key="App\Controller\UserController::profile" type="service_closure" id=".service_locator.HauJMNx"/>
         <argument key="App\Controller\UserController::show" type="service_closure" id=".service_locator.3vYy5bm"/>
@@ -5547,15 +5671,19 @@
         <argument key="App\Controller\ArticleController:index" type="service_closure" id=".service_locator.SKyBV3Z"/>
         <argument key="App\Controller\ArticleController:new" type="service_closure" id=".service_locator.SKyBV3Z"/>
         <argument key="App\Controller\ArticleController:show" type="service_closure" id=".service_locator.JbNDzVq"/>
+        <argument key="App\Controller\GoogleController:connectAction" type="service_closure" id=".service_locator.F4g8Vod"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.TLot220"/>
         <argument key="App\Controller\SecurityController:forgottenPass" type="service_closure" id=".service_locator.QXdYQvz"/>
         <argument key="App\Controller\SecurityController:home" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController:verifyUserEmail" type="service_closure" id=".service_locator.F8Oy7LC"/>
+        <argument key="App\Controller\UserController:ActivateAccountWithCode" type="service_closure" id=".service_locator.HauJMNx"/>
         <argument key="App\Controller\UserController:delete" type="service_closure" id=".service_locator.UBgjr8M"/>
         <argument key="App\Controller\UserController:delete_profile" type="service_closure" id=".service_locator.rko9FXl"/>
+        <argument key="App\Controller\UserController:disable_user" type="service_closure" id=".service_locator.tIkghun"/>
         <argument key="App\Controller\UserController:edit" type="service_closure" id=".service_locator.UBgjr8M"/>
         <argument key="App\Controller\UserController:edit_profile" type="service_closure" id=".service_locator.rko9FXl"/>
+        <argument key="App\Controller\UserController:enable_user" type="service_closure" id=".service_locator.tIkghun"/>
         <argument key="App\Controller\UserController:index" type="service_closure" id=".service_locator.HauJMNx"/>
         <argument key="App\Controller\UserController:profile" type="service_closure" id=".service_locator.HauJMNx"/>
         <argument key="App\Controller\UserController:show" type="service_closure" id=".service_locator.3vYy5bm"/>
@@ -5865,6 +5993,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.AVaUqzz" method="withContext"/>
     </service>
+    <service id=".service_locator.AVaUqzz.App\Controller\GoogleController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\GoogleController"/>
+      <argument>App\Controller\GoogleController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.AVaUqzz" method="withContext"/>
+    </service>
     <service id=".service_locator.AVaUqzz.App\Controller\RegistrationController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\RegistrationController"/>
       <argument>App\Controller\RegistrationController</argument>
@@ -6029,12 +6163,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.N.c.6YK"/>
+      <argument type="service" id=".service_locator.3i6faoq"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.N.c.6YK"/>
+      <argument type="service" id=".service_locator.3i6faoq"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6046,6 +6180,7 @@
     </service>
     <service id=".errored..service_locator.JbNDzVq.App\Entity\Article" class="App\Entity\Article"/>
     <service id=".errored..service_locator.vOKdNDk.App\Entity\Article" class="App\Entity\Article"/>
+    <service id=".errored..service_locator.tIkghun.App\Entity\User" class="App\Entity\User"/>
     <service id=".errored..service_locator.3vYy5bm.App\Entity\User" class="App\Entity\User"/>
     <service id=".errored..service_locator.UBgjr8M.App\Entity\User" class="App\Entity\User"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
@@ -6355,6 +6490,7 @@
     <service id="form.choice_list_factory" alias="form.choice_list_factory.cached" public="false"/>
     <service id="Symfony\Component\Asset\Packages" alias="assets.packages" public="false"/>
     <service id="Symfony\Contracts\HttpClient\HttpClientInterface" alias=".debug.http_client"/>
+    <service id="Psr\Http\Client\ClientInterface" alias="psr18.http_client"/>
     <service id="mailer" alias="mailer.mailer"/>
     <service id="Symfony\Component\Mailer\MailerInterface" alias="mailer.mailer"/>
     <service id="Symfony\Component\Mailer\Transport\TransportInterface" alias="mailer.default_transport"/>
@@ -6436,9 +6572,13 @@
     <service id="security.authentication.session_strategy.main" alias="security.authentication.session_strategy"/>
     <service id="security.user_checker.main" alias="security.user_checker" public="false"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker" public="false"/>
+    <service id="KnpU\OAuth2ClientBundle\Client\ClientRegistry" alias="knpu.oauth2.registry" public="false"/>
+    <service id="oauth2.registry" alias="knpu.oauth2.registry" public="true"/>
+    <service id="KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient" alias="knpu.oauth2.client.google" public="false"/>
+    <service id="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface" alias="symfonycasts.verify_email.helper"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.N.c.6YK"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.3i6faoq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
