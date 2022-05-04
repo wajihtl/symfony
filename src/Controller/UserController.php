@@ -18,7 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 
 /**
  * @Route("/user")
@@ -202,5 +205,165 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //MOBILE//
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @Route("/all/users", name="users_mobile", methods={"GET"})
+     */
+    public function mobile_all_users(NormalizerInterface $normalizable, UserRepository $userRepository, Request $request)
+    {
+        $users = $userRepository->findAll();
+        //  dd($users);
+        $jsonContent = $normalizable->normalize($users, 'json', ['groups' => 'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/login/mobile", name="api_loginn", methods={"POST"})
+     */
+    public function api_login(NormalizerInterface $normalizable, UserRepository $userRepository, Request $request, UserPasswordEncoderInterface $passwordHasher)
+    {
+        //$users = $userRepository->findAll();
+        $test = $request->query->get("username");
+        //dd($test);
+
+        $user = $userRepository->findOneBy(['username' => $request->get('username')]);
+
+
+        if ($user) {
+            //  dd('test');
+            $result = $passwordHasher->isPasswordValid($user, $request->get('password'));
+            if ($result) {
+                $jsonContent = $normalizable->normalize($user, 'json', ['groups' => 'post:read']);
+                return new Response(json_encode($jsonContent));
+            }
+        }
+        return new JsonResponse([
+            'error' => "invalid informations"
+        ]);
+    }
+
+
+
+    /**
+     * @Route("/signup/mobile", name="api_signup", methods={"POST"})
+     */
+    public function api_signup(UserPasswordEncoderInterface $userPasswordEncoder, NormalizerInterface $normalizable, EntityManagerInterface $entityManager, Request $request, UserPasswordEncoderInterface $passwordHasher)
+    {
+        //$users = $userRepository->findAll();
+        $user = new User();
+
+
+        $user->setNom($request->get('firstname'));
+        $user->setPrenom($request->get('lastname'));
+        $user->setUsername($request->get('username'));
+        $user->setEmail($request->get('email'));
+        $user->setNumTel($request->get('phonenumber'));
+        $user->setAdresse($request->get('adresse'));
+
+
+        $user->setPassword(
+            $userPasswordEncoder->encodePassword(
+                $user,
+                $request->get('password')
+            )
+        );
+        $current_date = new \DateTime('@' . strtotime('+01:00'));
+        $user->setDateNaissance($current_date);
+        $user->setRoles(["ROLE_USER"]);
+
+        $bytes = random_bytes(3);
+        $verificationCode = bin2hex($bytes);
+        $user->SetVerificationCode($verificationCode);
+
+        /* $this->twilio->messages->create("+216" . $user->getNumTel(), [
+            'from' => $this->fromNumber,
+            'body' => "To Activate Your account please use this code upon logging in \n Code :$verificationCode"
+        ]); */
+        $user->setIsVerified(1);
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return new JsonResponse([
+            'success' => "user has been added"
+        ]);
+    }
+
+
+
+    /**
+     * @Route("/resetPasswordUser/mobile", name="api_resetPasswordUser", methods={"POST"})
+     */
+    public function api_resetPasswordUser(UserRepository $userRepository, UserPasswordEncoderInterface $userPasswordEncoder, NormalizerInterface $normalizable, EntityManagerInterface $entityManager, Request $request, UserPasswordEncoderInterface $passwordHasher)
+    {
+        $user = $userRepository->findOneBy(['email' => $request->get('email')]);
+
+        if ($user) {
+            $password = $request->get('password');
+            $Confirmpassword = $request->get('confirmpassword');
+
+            if ($password ==  $Confirmpassword) {
+                $user->setPassword(
+                    $userPasswordEncoder->encodePassword(
+                        $user,
+                        $request->get('password')
+                    )
+                );
+                $entityManager->persist($user);
+                $entityManager->flush();
+                return new JsonResponse([
+                    'success' => "Password updated"
+                ]);
+            } else {
+                return new JsonResponse([
+                    'error' => "Password doesnt match"
+                ]);
+            }
+        } else {
+            return new JsonResponse([
+                'error' => "user doesnt exist"
+            ]);
+        }
+    }
+
+
+    /**
+     * @Route("/UpdatePassword/mobile", name="api_UpdatePasswordMobile")
+     */
+    public function UpdatePassword_Mobile(UserRepository $userRepository, NormalizerInterface $normalizable, EntityManagerInterface $entityManager, Request $request, UserPasswordEncoderInterface $userPasswordEncoder)
+    {
+        $password = $request->get('password');
+        $email = $request->get('email');
+        $user = $userRepository->findOneBy(['email' => $email]);
+        if ($user) {
+            $user->setPassword(
+                $userPasswordEncoder->encodePassword(
+                    $user,
+                    $password
+                )
+            );
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return new JsonResponse([
+                'success' => "password has been updated"
+            ]);
+        } else {
+            return new JsonResponse([
+                'error' => "error updating user"
+            ]);
+        }
     }
 }

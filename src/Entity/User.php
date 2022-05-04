@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Captcha\Bundle\CaptchaBundle\Validator\Constraints as CaptchaAssert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * User
@@ -24,6 +25,8 @@ class User implements UserInterface
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("post:read")
+     * 
      */
     private $id;
 
@@ -37,14 +40,14 @@ class User implements UserInterface
 
     /**
      * @var \DateTime
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="date_naissance", type="date", nullable=true)
      */
     private $dateNaissance;
 
     /**
      * @var string
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="le champs ne doit pas etre vide")
      * @Assert\Email(message = "The email '{{ value }}' is not a valid email")
@@ -53,7 +56,7 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      *  @Assert\NotBlank(message="le champs ne doit pas etre vide")
      * @Assert\Length(
@@ -80,14 +83,14 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
 
     /**
      * @var string
-     *
+     * @Groups("post:read")
      * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
      *  @Assert\NotBlank(message="le champs ne doit pas etre vide")
      * @Assert\Length(

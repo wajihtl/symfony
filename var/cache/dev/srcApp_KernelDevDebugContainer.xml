@@ -5642,7 +5642,50 @@
         <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.3i6faoq" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.VITDK7s" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="normalizable" type="service_closure" id="serializer"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.yBZRrP1" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="normalizable" type="service_closure" id="serializer"/>
+        <argument key="passwordHasher" type="service_closure" id="security.user_password_encoder.generic"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.PQ8B7o0" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="normalizable" type="service_closure" id="serializer"/>
+        <argument key="passwordHasher" type="service_closure" id="security.user_password_encoder.generic"/>
+        <argument key="userPasswordEncoder" type="service_closure" id="security.user_password_encoder.generic"/>
+      </argument>
+    </service>
+    <service id=".service_locator.lGfSnKE" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="normalizable" type="service_closure" id="serializer"/>
+        <argument key="passwordHasher" type="service_closure" id="security.user_password_encoder.generic"/>
+        <argument key="userPasswordEncoder" type="service_closure" id="security.user_password_encoder.generic"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.DypOpTC" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="normalizable" type="service_closure" id="serializer"/>
+        <argument key="userPasswordEncoder" type="service_closure" id="security.user_password_encoder.generic"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.JlsyN9G" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ArticleController::delete" type="service_closure" id=".service_locator.vOKdNDk"/>
@@ -5657,6 +5700,10 @@
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController::verifyUserEmail" type="service_closure" id=".service_locator.F8Oy7LC"/>
         <argument key="App\Controller\UserController::ActivateAccountWithCode" type="service_closure" id=".service_locator.HauJMNx"/>
+        <argument key="App\Controller\UserController::UpdatePassword_Mobile" type="service_closure" id=".service_locator.DypOpTC"/>
+        <argument key="App\Controller\UserController::api_login" type="service_closure" id=".service_locator.yBZRrP1"/>
+        <argument key="App\Controller\UserController::api_resetPasswordUser" type="service_closure" id=".service_locator.lGfSnKE"/>
+        <argument key="App\Controller\UserController::api_signup" type="service_closure" id=".service_locator.PQ8B7o0"/>
         <argument key="App\Controller\UserController::delete" type="service_closure" id=".service_locator.UBgjr8M"/>
         <argument key="App\Controller\UserController::delete_profile" type="service_closure" id=".service_locator.rko9FXl"/>
         <argument key="App\Controller\UserController::disable_user" type="service_closure" id=".service_locator.tIkghun"/>
@@ -5664,6 +5711,7 @@
         <argument key="App\Controller\UserController::edit_profile" type="service_closure" id=".service_locator.rko9FXl"/>
         <argument key="App\Controller\UserController::enable_user" type="service_closure" id=".service_locator.tIkghun"/>
         <argument key="App\Controller\UserController::index" type="service_closure" id=".service_locator.HauJMNx"/>
+        <argument key="App\Controller\UserController::mobile_all_users" type="service_closure" id=".service_locator.VITDK7s"/>
         <argument key="App\Controller\UserController::profile" type="service_closure" id=".service_locator.HauJMNx"/>
         <argument key="App\Controller\UserController::show" type="service_closure" id=".service_locator.3vYy5bm"/>
         <argument key="App\Controller\ArticleController:delete" type="service_closure" id=".service_locator.vOKdNDk"/>
@@ -5678,6 +5726,10 @@
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController:verifyUserEmail" type="service_closure" id=".service_locator.F8Oy7LC"/>
         <argument key="App\Controller\UserController:ActivateAccountWithCode" type="service_closure" id=".service_locator.HauJMNx"/>
+        <argument key="App\Controller\UserController:UpdatePassword_Mobile" type="service_closure" id=".service_locator.DypOpTC"/>
+        <argument key="App\Controller\UserController:api_login" type="service_closure" id=".service_locator.yBZRrP1"/>
+        <argument key="App\Controller\UserController:api_resetPasswordUser" type="service_closure" id=".service_locator.lGfSnKE"/>
+        <argument key="App\Controller\UserController:api_signup" type="service_closure" id=".service_locator.PQ8B7o0"/>
         <argument key="App\Controller\UserController:delete" type="service_closure" id=".service_locator.UBgjr8M"/>
         <argument key="App\Controller\UserController:delete_profile" type="service_closure" id=".service_locator.rko9FXl"/>
         <argument key="App\Controller\UserController:disable_user" type="service_closure" id=".service_locator.tIkghun"/>
@@ -5685,6 +5737,7 @@
         <argument key="App\Controller\UserController:edit_profile" type="service_closure" id=".service_locator.rko9FXl"/>
         <argument key="App\Controller\UserController:enable_user" type="service_closure" id=".service_locator.tIkghun"/>
         <argument key="App\Controller\UserController:index" type="service_closure" id=".service_locator.HauJMNx"/>
+        <argument key="App\Controller\UserController:mobile_all_users" type="service_closure" id=".service_locator.VITDK7s"/>
         <argument key="App\Controller\UserController:profile" type="service_closure" id=".service_locator.HauJMNx"/>
         <argument key="App\Controller\UserController:show" type="service_closure" id=".service_locator.3vYy5bm"/>
       </argument>
@@ -6163,12 +6216,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.3i6faoq"/>
+      <argument type="service" id=".service_locator.JlsyN9G"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.3i6faoq"/>
+      <argument type="service" id=".service_locator.JlsyN9G"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6578,7 +6631,7 @@
     <service id="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface" alias="symfonycasts.verify_email.helper"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.3i6faoq"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.JlsyN9G"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

@@ -2,33 +2,41 @@
 
 return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
     $o = [
-        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Column'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Column')),
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Symfony\\Component\\Serializer\\Annotation\\Groups'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Serializer\\Annotation\\Groups')),
+        clone ($p['Doctrine\\ORM\\Mapping\\Column'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Column')),
         clone ($p['Symfony\\Component\\Validator\\Constraints\\NotBlank'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\NotBlank')),
         clone ($p['Symfony\\Component\\Validator\\Constraints\\Email'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Validator\\Constraints\\Email')),
     ],
     null,
     [
+        'Symfony\\Component\\Serializer\\Annotation\\Groups' => [
+            'groups' => [
+                [
+                    'post:read',
+                ],
+            ],
+        ],
         'stdClass' => [
             'name' => [
-                'email',
+                1 => 'email',
             ],
             'type' => [
-                'string',
+                1 => 'string',
             ],
             'length' => [
-                255,
+                1 => 255,
             ],
             'precision' => [
-                null,
+                1 => null,
             ],
             'scale' => [
-                null,
+                1 => null,
             ],
             'nullable' => [
-                true,
+                1 => true,
             ],
             'groups' => [
-                1 => [
+                2 => [
                     'Default',
                 ],
                 [
@@ -36,7 +44,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                 ],
             ],
             'message' => [
-                1 => 'le champs ne doit pas etre vide',
+                2 => 'le champs ne doit pas etre vide',
                 'The email \'{{ value }}\' is not a valid email',
             ],
         ],
@@ -45,6 +53,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
         $o[0],
         $o[1],
         $o[2],
+        $o[3],
     ],
     []
 ); }];

@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '55d79e750a5583587cba910bea63757731f09442',
+        'reference' => '0a7c2e013aa5f1412b2833416aff8c3de6091200',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '55d79e750a5583587cba910bea63757731f09442',
+            'reference' => '0a7c2e013aa5f1412b2833416aff8c3de6091200',
             'dev_requirement' => false,
         ),
         'captcha-com/captcha' => array(
@@ -529,8 +529,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0.0',
-                1 => '1.0|2.0',
+                0 => '1.0|2.0',
+                1 => '1.0.0',
             ),
         ),
         'psr/simple-cache-implementation' => array(

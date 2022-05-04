@@ -78,9 +78,9 @@ class __TwigTemplate_7bc4bac56dfa76fa3d0cabff351bf721 extends Template
         echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 4, $this->source); })()), 'widget', ["id" => (isset($context["user_input_id"]) || array_key_exists("user_input_id", $context) ? $context["user_input_id"] : (function () { throw new RuntimeError('Variable "user_input_id" does not exist.', 4, $this->source); })()), "value" => ""]);
         echo "
     ";
-        $___internal_parse_3_ = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
+        $___internal_parse_0_ = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
         // line 2
-        echo twig_spaceless($___internal_parse_3_);
+        echo twig_spaceless($___internal_parse_0_);
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -111,9 +111,9 @@ class __TwigTemplate_7bc4bac56dfa76fa3d0cabff351bf721 extends Template
         echo $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 11, $this->source); })()), 'widget', ["id" => (isset($context["user_input_id"]) || array_key_exists("user_input_id", $context) ? $context["user_input_id"] : (function () { throw new RuntimeError('Variable "user_input_id" does not exist.', 11, $this->source); })()), "value" => ""]);
         echo "
     ";
-        $___internal_parse_4_ = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
+        $___internal_parse_1_ = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
         // line 9
-        echo twig_spaceless($___internal_parse_4_);
+        echo twig_spaceless($___internal_parse_1_);
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 

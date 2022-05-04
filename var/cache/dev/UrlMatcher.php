@@ -33,6 +33,11 @@ return [
         '/user/profile/delete' => [[['_route' => 'delete_profile', '_controller' => 'App\\Controller\\UserController::delete_profile'], null, ['GET' => 0], null, false, false, null]],
         '/user/profile/edit' => [[['_route' => 'edit_profile', '_controller' => 'App\\Controller\\UserController::edit_profile'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/user' => [[['_route' => 'app_user_index', '_controller' => 'App\\Controller\\UserController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/user/all/users' => [[['_route' => 'users_mobile', '_controller' => 'App\\Controller\\UserController::mobile_all_users'], null, ['GET' => 0], null, false, false, null]],
+        '/user/login/mobile' => [[['_route' => 'api_loginn', '_controller' => 'App\\Controller\\UserController::api_login'], null, ['POST' => 0], null, false, false, null]],
+        '/user/signup/mobile' => [[['_route' => 'api_signup', '_controller' => 'App\\Controller\\UserController::api_signup'], null, ['POST' => 0], null, false, false, null]],
+        '/user/resetPasswordUser/mobile' => [[['_route' => 'api_resetPasswordUser', '_controller' => 'App\\Controller\\UserController::api_resetPasswordUser'], null, ['POST' => 0], null, false, false, null]],
+        '/user/UpdatePassword/mobile' => [[['_route' => 'api_UpdatePasswordMobile', '_controller' => 'App\\Controller\\UserController::UpdatePassword_Mobile'], null, null, null, false, false, null]],
         '/captcha-handler' => [[['_route' => 'captcha_handler', '_controller' => 'CaptchaBundle:CaptchaHandler:index'], null, ['GET' => 0], null, false, false, null]],
         '/simple-captcha-handler' => [[['_route' => 'simple_captcha_handler', '_controller' => 'CaptchaBundle:SimpleCaptchaHandler:index'], null, ['GET' => 0], null, false, false, null]],
     ],
@@ -61,12 +66,12 @@ return [
                 .'|/resetPassword/([^/]++)(*:242)'
                 .'|/user/(?'
                     .'|disable_user/([^/]++)(*:280)'
-                    .'|enable_user/([^/]++)(*:308)'
+                    .'|ena ble_user/([^/]++)(*:309)'
                     .'|([^/]++)(?'
-                        .'|(*:327)'
-                        .'|/edit(*:340)'
+                        .'|(*:328)'
+                        .'|/edit(*:341)'
                     .')'
-                    .'|delete/([^/]++)(*:364)'
+                    .'|delete/([^/]++)(*:365)'
                 .')'
             .')/?$}sD',
     ],
@@ -83,10 +88,10 @@ return [
         210 => [[['_route' => 'app_article_delete', '_controller' => 'App\\Controller\\ArticleController::delete'], ['idarticle'], ['POST' => 0], null, false, true, null]],
         242 => [[['_route' => 'app_reset_password', '_controller' => 'App\\Controller\\SecurityController::verifyUserEmail'], ['token'], null, null, false, true, null]],
         280 => [[['_route' => 'disable_user', '_controller' => 'App\\Controller\\UserController::disable_user'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        308 => [[['_route' => 'enable_user', '_controller' => 'App\\Controller\\UserController::enable_user'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        327 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\UserController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        340 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        364 => [
+        309 => [[['_route' => 'enable_user', '_controller' => 'App\\Controller\\UserController::enable_user'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        328 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\UserController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        341 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        365 => [
             [['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\UserController::delete'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
